@@ -9,8 +9,13 @@ import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import Image from 'next/image'
 import { Badge } from '../ui/badge'
+import { Article } from '@/interfaces/interfaces'
 
-export default function RecentPosts() {
+interface Props {
+    articles: Article[]
+}
+
+export default function RecentPosts({ articles }: Props) {
     return (
         <section className="py-12 md:py-16">
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,12 +29,12 @@ export default function RecentPosts() {
                     </Link>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {[1, 2, 3].map((post) => (
-                        <Card key={post} className="overflow-hidden">
+                    {articles.slice(1, 4).map((article) => (
+                        <Card key={article.id} className="overflow-hidden">
                             <div className="aspect-video w-full overflow-hidden">
-                                <Image
-                                    src={`/placeholder.svg?height=400&width=600`}
-                                    alt={`Blog post ${post}`}
+                                <img
+                                    src={article.image}
+                                    alt={`Blog post ${article.name}`}
                                     width={600}
                                     height={400}
                                     className="object-cover w-full h-full transition-transform hover:scale-105"
@@ -41,26 +46,25 @@ export default function RecentPosts() {
                                         Design
                                     </Badge>
                                     <CardTitle className="line-clamp-2">
-                                        <Link href={`/blog/post-${post}`}>
-                                            How to Create Stunning Animations with CSS and JavaScript
+                                        <Link href={`/articles/${article.id}`}>
+                                            {article.name}
                                         </Link>
                                     </CardTitle>
                                 </div>
                             </CardHeader>
                             <CardContent className="p-4 pt-0">
                                 <p className="text-muted-foreground text-sm line-clamp-3">
-                                    Learn the fundamentals of creating smooth, engaging animations that enhance user experience
-                                    without sacrificing performance.
+                                    {article.description}
                                 </p>
                             </CardContent>
                             <CardFooter className="p-4 pt-0 flex items-center text-xs text-muted-foreground">
                                 <div className="flex items-center gap-1">
                                     <Calendar className="h-3 w-3" />
-                                    <span>March 20, 2025</span>
+                                    <span>{article.date}</span>
                                 </div>
                                 <div className="flex items-center gap-1 ml-4">
                                     <User className="h-3 w-3" />
-                                    <span>Alex Chen</span>
+                                    <span>{article.author}</span>
                                 </div>
                             </CardFooter>
                         </Card>
