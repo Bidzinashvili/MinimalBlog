@@ -1,13 +1,17 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
 
 import { Button } from "@/components/ui/button"
-
-import { Search, Menu, X, } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const pathname = usePathname()
+
+    const getLinkClass = (path: string) =>
+        `text-sm font-medium transition-colors ${pathname === path ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -19,25 +23,16 @@ export default function Header() {
                 </div>
 
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link href="/" className={getLinkClass('/')}>
                         Home
                     </Link>
-                    <Link
-                        href="/categories"
-                        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                    >
+                    <Link href="/categories" className={getLinkClass('/categories')}>
                         Categories
                     </Link>
-                    <Link
-                        href="/about"
-                        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                    >
+                    <Link href="/about" className={getLinkClass('/about')}>
                         About
                     </Link>
-                    <Link
-                        href="/contact"
-                        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                    >
+                    <Link href="/contact" className={getLinkClass('/contact')}>
                         Contact
                     </Link>
                 </nav>
@@ -55,19 +50,19 @@ export default function Header() {
             {isMenuOpen && (
                 <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:hidden py-4 border-t">
                     <nav className="flex flex-col gap-4">
-                        <Link href="/" className="text-sm font-medium">
+                        <Link href="/" className={getLinkClass('/')}>
                             Home
                         </Link>
-                        <Link href="/categories" className="text-sm font-medium text-muted-foreground">
+                        <Link href="/categories" className={getLinkClass('/categories')}>
                             Categories
                         </Link>
-                        <Link href="/about" className="text-sm font-medium text-muted-foreground">
+                        <Link href="/about" className={getLinkClass('/about')}>
                             About
                         </Link>
-                        <Link href="/contact" className="text-sm font-medium text-muted-foreground">
+                        <Link href="/contact" className={getLinkClass('/contact')}>
                             Contact
                         </Link>
-                        <div className="flex items-center gap-2 pt-2 border-t">
+                        <div className="flex items-center gap-2 pt-2 border-t cursor-pointer">
                             <Button variant="outline" size="sm" className="w-full mt-2">
                                 Subscribe
                             </Button>
