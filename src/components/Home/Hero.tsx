@@ -13,10 +13,6 @@ type Props = {
 
 export default function Hero({ article }: Props) {
 
-    useEffect(() => {
-        console.log(article)
-    }, [article])
-
     return (
         <section className="py-10 md:py-16">
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

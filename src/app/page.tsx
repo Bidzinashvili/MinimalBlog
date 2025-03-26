@@ -5,7 +5,7 @@ import Newsletter from "@/components/Home/Newsletter";
 import { Article } from "@/interfaces/interfaces";
 
 const GetArticles = async (): Promise<Article[]> => {
-  const response = await fetch('http://localhost:3001/blogs');
+  const response = await fetch('https://minimalblog-server-production.up.railway.app/blogs');
   const data = await response.json();
   return data;
 };
