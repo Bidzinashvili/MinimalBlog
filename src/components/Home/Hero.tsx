@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar, User } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Article } from '@/interfaces/interfaces'
+import Link from 'next/link'
 
 type Props = {
     article: Article
@@ -38,9 +39,11 @@ export default function Hero({ article }: Props) {
                                 <span>{article.author}</span>
                             </div>
                         </div>
-                        <Button className="mt-2">
-                            Read Article <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
+                        <Link href={`/articles/${article.id}`}>
+                            <Button className="mt-2">
+                                Read Article <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </Link>
                     </div>
                     <div className="aspect-video overflow-hidden rounded-lg">
                         <img
